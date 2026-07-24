@@ -43,6 +43,7 @@ def criar_tabelas():
             data_nascimento DATE,
             profissao TEXT,
             contato_emergencia TEXT,
+            valor_consulta REAL,
             observacoes TEXT,
             FOREIGN KEY (usuario_id) REFERENCES usuarios (id)
         )
@@ -247,11 +248,12 @@ def sistema_principal():
 
   st.title(f"🌿 Painel da {user_nome}")
 
-  aba_inicio, aba_lista, aba_cadastro, aba_agenda = st.tabs([
+  aba_inicio, aba_lista, aba_cadastro, aba_agenda, aba_financeiro = st.tabs([
       "🏠 Início",
       "📄 Pacientes",
       "➕ Novo Paciente",
       "📅 Agendar Consulta",
+      "💵 Financeiro"
   ])
 
   # --- INÍCIO ---
@@ -347,7 +349,7 @@ def sistema_principal():
         contato_emergencia_raw = st.text_input(
             "Contato de Emergência", placeholder="(00) 00000-0000"
         )
-
+      valor_consulta = st.number_input("Valor da Consulta (R$)", min_value=0.0, value=150.0, step=10.0)
       observacoes = st.text_area("Observações / Histórico Inicial")
       submetido = st.form_submit_button("Salvar Paciente")
 
@@ -360,20 +362,10 @@ def sistema_principal():
           c = conn.cursor()
           c.execute(
               """
-                    INSERT INTO pacientes (usuario_id, nome, telefone, email, cpf, data_nascimento, profissao, contato_emergencia, observacoes)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """,
-              (
-                  user_id,
-                  nome,
-                  tel_fmt,
-                  email,
-                  cpf,
-                  str(data_nasc) if data_nasc else "",
-                  profissao,
-                  emerg_fmt,
-                  observacoes,
-              ),
+                    INSERT INTO pacientes (usuario_id, nome, telefone, email, cpf, data_nascimento, profissao, contato_emergencia, valor_consulta, observacoes)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (user_id, nome, tel_fmt, email, cpf, str(data_nasc) if data_nasc else "", profissao, emerg_fmt, valor_consulta, observacoes)
+             
           )
           conn.commit()
           conn.close()
