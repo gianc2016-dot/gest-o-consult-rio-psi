@@ -257,10 +257,10 @@ def sistema_principal():
   # --- INÍCIO ---
   with aba_inicio:
     st.markdown("### 🌿 Cuidado, Escuta e Transformação")
-    st.info(
-        '> *"A ciência moderna ainda não produziu um medicamento tranquilizador'
-        ' tão eficaz quanto o são umas poucas palavras bondosas."*\n    > **—'
-        " Sigmund Freud**"
+  st.info(
+    '"A ciência moderna ainda não produziu um medicamento '
+    'tranquilizador tão eficaz quanto o são umas poucas palavras bondosas." '
+    '— **Sigmund Freud**'
     )
 
   # --- FICHA DOS PACIENTES (FILTRADO PELO USUÁRIO LOGADO) ---
