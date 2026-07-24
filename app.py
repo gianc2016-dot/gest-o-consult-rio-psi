@@ -431,3 +431,8 @@ if st.session_state["usuario_logado"] is None:
   tela_login()
 else:
   sistema_principal()
+  st.markdown("---")
+st.markdown(
+    "<p style='text-align: center; color: gray;'>Sistema Gestão Psi • Desenvolvido com ❤️ | Versão 1.1</p>", 
+    unsafe_allow_html=True
+)
